@@ -1,0 +1,25 @@
+_prefs: 
+  mapid: andygol.412b237e
+  saveCenter: true
+_properties: {}
+attribution: ''
+bounds: 
+  - -180
+  - -85.0511
+  - 180
+  - 85.0511
+center: 
+  - 34.93
+  - 48.4816
+  - 15
+description: ''
+format: "png8:m=h"
+interactivity_layer: ''
+layers: null
+maxzoom: 19
+minzoom: 11
+name: Dnipro 3d buildings
+source: "mapbox:///mapbox.mapbox-streets-v5,andygol.bdcb04cb"
+styles: 
+  - style.mss
+template: ''

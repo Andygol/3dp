@@ -1,0 +1,122 @@
+_prefs: 
+  disabled: []
+  inspector: false
+  mapid: andygol.bdcb04cb
+  rev: s-53409077
+  saveCenter: true
+attribution: ''
+center: 
+  - 34.9078
+  - 48.4787
+  - 16
+description: ''
+Layer: 
+  - id: data_wo_hl
+    Datasource: 
+      dbname: gisdb
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: localhost
+      key_field: ''
+      max_size: 512
+      password: ''
+      port: ''
+      table: |-
+        (SELECT way, 4.5 AS height
+        FROM planet_osm_polygon
+        WHERE (height IS NULL AND "building:levels" IS NULL)
+        ORDER BY ST_YMax(ST_Envelope(way))
+         ) AS data_wo_hl
+      type: postgis
+      user: andygol
+    description: ''
+    fields: 
+      height: Number
+    properties: 
+      "buffer-size": 64
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: data_wo_h_l
+    Datasource: 
+      dbname: gisdb
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: localhost
+      key_field: ''
+      max_size: 512
+      password: ''
+      port: ''
+      table: |-
+        (SELECT way, (CAST ("building:levels" AS int) * 3 + 3) as height
+        FROM planet_osm_polygon
+        WHERE ((height IS NULL) AND ("building:levels" IS NOT NULL)) 
+        /*дома у которых нет высоты но есть этажность*/
+        
+        ORDER BY ST_YMax(ST_Envelope(way))
+         ) AS data_wo_h_l
+      type: postgis
+      user: andygol
+    description: ''
+    fields: 
+      height: String
+    properties: 
+      "buffer-size": 64
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: data_h_wo_l
+    Datasource: 
+      dbname: gisdb
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: localhost
+      key_field: ''
+      max_size: 512
+      password: ''
+      port: ''
+      table: |-
+        (SELECT way, height
+        FROM planet_osm_polygon
+        WHERE ((height IS NOT NULL) AND ("building:levels" IS NULL)) 
+         /*дома у которых есть высоты но нет этажности*/
+        
+        ORDER BY ST_YMax(ST_Envelope(way))
+         ) AS data_h_wo_l
+      type: postgis
+      user: andygol
+    description: ''
+    fields: 
+      height: String
+    properties: 
+      "buffer-size": 64
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: data_h_l
+    Datasource: 
+      dbname: gisdb
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: localhost
+      key_field: ''
+      max_size: 512
+      password: ''
+      port: ''
+      table: |-
+        (SELECT way, height
+        FROM planet_osm_polygon
+        WHERE ((height IS NOT NULL) AND ("building:levels" IS NOT NULL)) 
+         /*дома у которых есть высота и этажность*/
+        
+        ORDER BY ST_YMax(ST_Envelope(way))
+         ) AS data_h_l 
+      type: postgis
+      user: andygol
+    description: ''
+    fields: 
+      height: String
+    properties: 
+      "buffer-size": 64
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+maxzoom: 16
+minzoom: 11
+name: 3d_building-dp
